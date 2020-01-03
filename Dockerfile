@@ -1,6 +1,5 @@
 FROM openjdk:11
-WORKDIR /tmp
-RUN git clone https://github.com/allytkn/kubernetes-pipeline-java.git
+ADD /authentication-0.0.1.jar /tmp/authentication-0.0.1.jar
 VOLUME /tmp/authentication-0.0.1
 EXPOSE 8080
 ARG JAR_FILE=authentication-0.0.1.jar
