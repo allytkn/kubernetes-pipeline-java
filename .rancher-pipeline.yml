@@ -1,10 +1,10 @@
 stages:
-- name: Publish
+- name: Build & Publish
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: authentication:${CICD_EXECUTION_SEQUENCE}
+      tag: ${CICD_GIT_TAG}:${CICD_EXECUTION_SEQUENCE}
       registry: registry-docker.digitalplanet.com.tr:5000
 - name: Deploy
   steps:
