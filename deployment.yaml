@@ -1,24 +1,12 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: authentication
-spec:
-  selector:
-    app: authentication
-  type: NodePort
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8081
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: authentication
+  name: nginx-deployment
+  namespace: 1-tetra
   labels:
     app: authentication
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: authentication
@@ -32,5 +20,12 @@ spec:
       containers:
       - name: authentication
         image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
-        ports:
-        - containerPort: 8080
+        ports: 8080
+        - containerPort: 80
+      resources:
+        limits:
+          cpu: "150m"
+          memory: "1024Mi"
+        requests:
+          cpu: "100m"
+          memory: "512Mi"
