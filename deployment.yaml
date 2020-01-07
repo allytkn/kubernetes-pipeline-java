@@ -1,36 +1,36 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: greenhouse-service
+  name: authentication
 spec:
   selector:
-    app: greenhouse
+    app: authentication
   type: NodePort
   ports:
     - protocol: TCP
       port: 8080
-      targetPort: 8080
+      targetPort: 8081
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-greenhouse
+  name: authentication
   labels:
-    app: greenhouse
+    app: authentication
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: greenhouse
+      app: authentication
   template:
     metadata:
       labels:
-        app: greenhouse
+        app: authentication
     spec:
       imagePullSecrets:
       - name: pipeline-docker-registry
       containers:
-      - name: maven
+      - name: authentication
         image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         ports:
         - containerPort: 8080
