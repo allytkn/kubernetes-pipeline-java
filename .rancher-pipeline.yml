@@ -1,11 +1,9 @@
 stages:
 - name: Build
   steps:
-  - publishImageConfig:
-      dockerfilePath: ./Dockerfile
-      buildContext: .
-      tag: authentication:${CICD_EXECUTION_SEQUENCE}
-      registry: registry-docker.digitalplanet.com.tr:5000
+  - runScriptConfig:
+      image: maven:3-jdk-7
+      shellScript: maven clean install
 - name: Publish
   steps:
   - publishImageConfig:
