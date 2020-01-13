@@ -4,18 +4,11 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: ${CICD_GIT_REPO_NAME}:${CICD_EXECUTION_SEQUENCE}
+      tag: authentication:${CICD_EXECUTION_SEQUENCE}
       registry: registry-docker.digitalplanet.com.tr:5000
 - name: Deploy
   steps:
   - applyYamlConfig:
       path: ./deployment.yaml
 timeout: 60
-notification:
-  recipients:
-  - recipient: '#rancher'
-    notifier: c-sx2gv:n-m78ds
-  condition:
-  - Success
-  - Changed
-  - Failed
+notification: {}
